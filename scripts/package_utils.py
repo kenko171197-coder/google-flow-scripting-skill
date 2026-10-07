@@ -35,9 +35,10 @@ EXCLUDED_PARTS = {
     "node_modules",
     ".wrangler",
 }
-# The web app is developed in this repository but is not part of the Skill
-# package that gets installed, released, or manifest-verified.
-EXCLUDED_TOP_LEVEL = {"web"}
+# The web app (web/ plus its root-level Cloudflare config) is developed in this
+# repository but is not part of the Skill package that gets installed,
+# released, or manifest-verified.
+EXCLUDED_TOP_LEVEL = {"web", "wrangler.jsonc"}
 EXCLUDED_SUFFIXES = {".pyc", ".pyo", ".DS_Store"}
 
 

@@ -287,8 +287,8 @@
     },
     {
       "path": "scripts/package_utils.py",
-      "sha256": "2e5c662b6403d9cdb2386afa1cdc8d0b95c22b9c678359d35f032baa33b94d9a",
-      "size": 13605
+      "sha256": "2f873d606583e18c55ebaab6100452468363b173d442e51afefafe5dbe64e2f5",
+      "size": 13670
     },
     {
       "path": "scripts/start_release.py",
@@ -526,7 +526,7 @@
       "size": 26901
     }
   ],
-  "generated_at": "2026-10-07T14:13:56Z",
+  "generated_at": "2026-10-07T15:09:14Z",
   "package": "google-flow-scripting-skill",
   "schema_version": 1,
   "version": "1.6.0"
