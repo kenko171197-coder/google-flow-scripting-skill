@@ -1,0 +1,17 @@
+{
+  "$schema": "web/node_modules/wrangler/config-schema.json",
+  // Lives at the repository root so Cloudflare Workers Builds can deploy with
+  // its default settings (root directory "/", deploy command
+  // "npx wrangler deploy"). The app itself is in web/.
+  "name": "google-flow-scripting-skill",
+  "main": "web/src/worker.ts",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./web/public",
+    "binding": "ASSETS"
+  },
+  // The Skill's Markdown files are bundled as plain text so the app always
+  // uses the same instructions as the repository.
+  "rules": [{ "type": "Text", "globs": ["**/*.md"], "fallthrough": true }],
+  "observability": { "enabled": true }
+}

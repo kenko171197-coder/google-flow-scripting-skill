@@ -33,7 +33,19 @@ npm run dev        # http://localhost:8787
 
 ## Deploy lên Cloudflare
 
-### Cách 1: dòng lệnh
+File cấu hình Worker là `wrangler.jsonc` ở **thư mục gốc của repo** (không nằm trong `web/`), nên Cloudflare deploy được với cài đặt mặc định.
+
+### Cách 1: nối GitHub trong Cloudflare dashboard (khuyên dùng)
+
+1. Cloudflare dashboard, vào **Workers & Pages**, chọn **Create**, ở tab **Workers** chọn **Import a repository**, rồi chọn repo này.
+2. **Project name**: `google-flow-scripting-skill` (phải trùng `"name"` trong `wrangler.jsonc`; nếu muốn tên khác thì sửa cả hai cho giống nhau).
+3. **Root directory**: để trống (thư mục gốc).
+4. **Build command**: để trống.
+5. **Deploy command**: `npx wrangler deploy`
+
+Từ đó mỗi lần push lên `main`, Cloudflare sẽ tự deploy lại. Không chọn tab **Pages**: app này là Worker.
+
+### Cách 2: dòng lệnh
 
 ```bash
 cd web
@@ -42,16 +54,7 @@ npx wrangler login
 npm run deploy
 ```
 
-Wrangler in ra địa chỉ dạng `https://flow-scripting-studio.<tên-tài-khoản>.workers.dev`.
-
-### Cách 2: nối GitHub trong Cloudflare dashboard
-
-1. Cloudflare dashboard, vào **Workers & Pages**, chọn **Create**, rồi **Import a repository** và chọn repo này.
-2. **Root directory**: `web`
-3. **Build command**: `npm install`
-4. **Deploy command**: `npx wrangler deploy`
-
-Từ đó mỗi lần push lên nhánh chính, Cloudflare sẽ tự deploy lại.
+Wrangler in ra địa chỉ dạng `https://google-flow-scripting-skill.<tên-tài-khoản>.workers.dev`.
 
 ## Kiểm tra trước khi deploy
 
@@ -66,13 +69,14 @@ npm run check      # typecheck, so sánh với validate.py, build thử Worker
 
 | Đường dẫn | Vai trò |
 |---|---|
+| `../wrangler.jsonc` | Cấu hình Cloudflare Worker (ở thư mục gốc repo) |
 | `src/worker.ts` | Worker: phục vụ giao diện, các API `/api/generate` (stream từ Gemini), `/api/validate`, `/api/models` |
 | `src/skill.ts` | Ghép các file Skill thành system instruction, thêm hợp đồng định dạng đầu ra cho app |
 | `src/validator.ts` | Bản TypeScript của `scripts/validate.py` |
 | `public/` | Giao diện (HTML, CSS, JS thuần, không cần build) |
 | `test/parity.test.ts` | So sánh kết quả với `scripts/validate.py` |
 
-Thư mục `web/` không thuộc gói Skill: trình cài đặt, bản phát hành và `MANIFEST.json` đều bỏ qua nó.
+Thư mục `web/` và file `wrangler.jsonc` ở gốc không thuộc gói Skill: trình cài đặt, bản phát hành và `MANIFEST.json` đều bỏ qua nó.
 
 ## Giới hạn
 
